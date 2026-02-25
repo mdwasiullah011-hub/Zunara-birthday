@@ -6,16 +6,30 @@
 <title>Happy Birthday ❤️</title>
 
 <style>
+
+/* =========================
+   BODY – Animated Gradient
+========================= */
 body{
 margin:0;
-background:#1a0033;
+background:linear-gradient(-45deg,#1a0033,#330066,#4b0082,#2a003f);
+background-size:400% 400%;
+animation:bgMove 12s ease infinite;
 font-family:"Brush Script MT", cursive;
 color:yellow;
 text-align:center;
 overflow-x:auto;
 }
 
-/* Desktop wrapper */
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* =========================
+   DESKTOP WRAPPER
+========================= */
 .desktop{
 width:1200px;
 min-height:100vh;
@@ -23,7 +37,9 @@ margin:0 auto;
 position:relative;
 }
 
-/* Pages */
+/* =========================
+   PAGES (Glass Effect)
+========================= */
 .page{
 position:absolute;
 width:100%;
@@ -33,11 +49,22 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 padding:40px;
+transition:opacity 0.6s ease;
+opacity:1;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(12px);
+border-radius:20px;
+box-shadow:0 0 40px rgba(255,0,255,0.3);
 }
 
-.hidden{ display:none; }
+.hidden{
+opacity:0;
+pointer-events:none;
+}
 
-/* Headings */
+/* =========================
+   HEADINGS
+========================= */
 h1{
 font-size:42px;
 margin:10px 0;
@@ -49,18 +76,46 @@ text-shadow:0 0 20px #ff4dff,0 0 40px pink;
 font-size:60px;
 }
 
+/* Typing Effect */
+.typing{
+overflow:hidden;
+white-space:nowrap;
+border-right:3px solid pink;
+animation:typing 4s steps(30,end), blink 0.8s infinite;
+}
+
+@keyframes typing{
+from{width:0;}
+to{width:100%;}
+}
+
+@keyframes blink{
+50%{border-color:transparent;}
+}
+
 .love{
 color:red;
 text-shadow:0 0 20px red,0 0 40px pink;
 }
 
-/* Cake */
+/* =========================
+   CAKE INTERACTION
+========================= */
 #cake{
 font-size:220px;
 margin:30px 0;
+transition:transform 0.3s ease, text-shadow 0.3s ease;
+cursor:pointer;
 }
 
-/* Buttons */
+#cake:hover{
+transform:scale(1.1);
+text-shadow:0 0 30px pink,0 0 60px yellow;
+}
+
+/* =========================
+   BUTTONS
+========================= */
 button{
 padding:15px 40px;
 font-size:22px;
@@ -70,9 +125,17 @@ color:white;
 margin-top:30px;
 border-radius:8px;
 cursor:pointer;
+transition:0.3s;
 }
 
-/* Vertical images */
+button:hover{
+background:#ff1aff;
+transform:scale(1.05);
+}
+
+/* =========================
+   IMAGES
+========================= */
 .vertical{
 display:flex;
 flex-direction:column;
@@ -85,9 +148,13 @@ margin:30px 0;
 width:300px;
 border-radius:15px;
 box-shadow:0 0 25px pink;
+transition:0.3s;
 }
 
-/* Grid page 4 */
+.vertical img:hover{
+transform:scale(1.05);
+}
+
 .grid{
 display:grid;
 grid-template-columns:repeat(2,300px);
@@ -99,9 +166,16 @@ margin-top:40px;
 width:300px;
 border-radius:15px;
 box-shadow:0 0 20px pink;
+transition:0.3s;
 }
 
-/* Floating hearts */
+.grid img:hover{
+transform:scale(1.05);
+}
+
+/* =========================
+   FLOATING HEARTS
+========================= */
 @keyframes riseUp{
 from{transform:translateY(0);}
 to{transform:translateY(-120vh);}
@@ -115,11 +189,12 @@ opacity:0.6;
 animation:riseUp 8s linear forwards;
 }
 
-/* Confetti rotation animation */
+/* Confetti spin */
 @keyframes spin{
 from{transform:rotate(0deg);}
 to{transform:rotate(360deg);}
 }
+
 </style>
 </head>
 
@@ -131,7 +206,7 @@ to{transform:rotate(360deg);}
 <div class="page" id="page1">
 
 <h1>Happy Birthday To The Love Of My Life ❤️</h1>
-<div class="highlight">Zunaira</div>
+<div class="highlight typing">Zunaira</div>
 
 <div id="cake">🎂</div>
 
@@ -180,7 +255,7 @@ fr milkr v krenge sath m celebrate 😁♥️
 <button onclick="nextPage(4)">Next ➜</button>
 </div>
 
-<!-- PAGE 4 -->
+<!-- PAGE 4 – GRAND FINALE -->
 <div class="page hidden" id="page4">
 
 <div class="highlight">WILL MARRY YOU SOON ❤️</div>
@@ -192,29 +267,34 @@ fr milkr v krenge sath m celebrate 😁♥️
 <img src="photo8.jpg">
 </div>
 
+<h1 style="margin-top:40px;font-size:50px;text-shadow:0 0 30px red;">
+Forever & Always ❤️
+</h1>
+
+<button onclick="nextPage(1)">Start Again 💞</button>
+
 </div>
 
 </div>
 
 <script>
 
+/* Page Switch */
 function nextPage(num){
 document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
 document.getElementById("page"+num).classList.remove('hidden');
 }
 
-/* CELEBRATION ENGINE */
-
+/* Celebration */
 function celebrate(){
 confettiBurst();
 balloonFountain();
 sparkleBurst();
 }
 
-/* Confetti Physics */
+/* Confetti */
 function confettiBurst(){
 for(let i=0;i<80;i++){
-
 let piece=document.createElement("div");
 piece.style.position="fixed";
 piece.style.width="8px";
@@ -244,14 +324,12 @@ clearInterval(anim);
 piece.remove();
 }
 },20);
-
 }
 }
 
-/* Balloon Fountain */
+/* Balloons */
 function balloonFountain(){
 for(let i=0;i<35;i++){
-
 let balloon=document.createElement("div");
 balloon.innerHTML="🎈";
 balloon.style.position="fixed";
@@ -260,16 +338,13 @@ balloon.style.bottom="0px";
 balloon.style.fontSize=(24+Math.random()*12)+"px";
 balloon.style.animation="riseUp 4s linear forwards";
 document.body.appendChild(balloon);
-
 setTimeout(()=>balloon.remove(),4000);
-
 }
 }
 
-/* Sparkle Burst */
+/* Sparkles */
 function sparkleBurst(){
 for(let i=0;i<60;i++){
-
 let star=document.createElement("div");
 star.innerHTML="✨";
 star.style.position="fixed";
@@ -278,9 +353,7 @@ star.style.top=Math.random()*100+"vh";
 star.style.fontSize=(14+Math.random()*18)+"px";
 star.style.opacity=Math.random();
 document.body.appendChild(star);
-
 setTimeout(()=>star.remove(),1500);
-
 }
 }
 
@@ -295,7 +368,7 @@ document.body.appendChild(heart);
 setTimeout(()=>heart.remove(),8000);
 },900);
 
-/* Random Color Generator */
+/* Random Color */
 function randomColor(){
 const colors=["#ff4dff","#ff0000","#ffff00","#00ffff","#00ff00","#ff8800","#ff66cc"];
 return colors[Math.floor(Math.random()*colors.length)];
