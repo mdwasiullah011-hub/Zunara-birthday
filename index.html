@@ -2,7 +2,6 @@
 <html>
 <head>
 
-<!-- FORCE DESKTOP VIEW -->
 <meta name="viewport" content="width=1200">
 <title>Happy Birthday ❤️</title>
 
@@ -102,24 +101,24 @@ border-radius:15px;
 box-shadow:0 0 20px pink;
 }
 
-/* Hearts floating */
-.heart{
-position:fixed;
-bottom:-20px;
-font-size:18px;
-animation:floatHeart 8s linear infinite;
-opacity:0.6;
-}
-
-@keyframes floatHeart{
+/* Floating hearts */
+@keyframes riseUp{
 from{transform:translateY(0);}
 to{transform:translateY(-120vh);}
 }
 
-/* Fountain animation */
-@keyframes fountain{
-from{transform:translateY(0);}
-to{transform:translateY(-100vh);}
+.heart{
+position:fixed;
+bottom:-20px;
+font-size:18px;
+opacity:0.6;
+animation:riseUp 8s linear forwards;
+}
+
+/* Confetti rotation animation */
+@keyframes spin{
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
 }
 </style>
 </head>
@@ -204,64 +203,62 @@ document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
 document.getElementById("page"+num).classList.remove('hidden');
 }
 
-/* ===== CELEBRATION ENGINE ===== */
+/* CELEBRATION ENGINE */
 
 function celebrate(){
 confettiBurst();
 balloonFountain();
-sparkleTrail();
+sparkleBurst();
 }
 
-/* 🎊 Confetti Burst */
+/* Confetti Physics */
 function confettiBurst(){
-
 for(let i=0;i<80;i++){
 
-let conf=document.createElement("div");
-conf.style.position="fixed";
-conf.style.width="8px";
-conf.style.height="8px";
-conf.style.background=randomColor();
-conf.style.left="50vw";
-conf.style.top="60vh";
-conf.style.borderRadius="2px";
+let piece=document.createElement("div");
+piece.style.position="fixed";
+piece.style.width="8px";
+piece.style.height="8px";
+piece.style.background=randomColor();
+piece.style.left="50vw";
+piece.style.top="55vh";
+piece.style.borderRadius="2px";
+piece.style.zIndex="9999";
+document.body.appendChild(piece);
 
 let angle=Math.random()*2*Math.PI;
-let velocity=5+Math.random()*8;
-let x=Math.cos(angle)*velocity;
-let y=Math.sin(angle)*velocity;
-
-document.body.appendChild(conf);
-
+let velocity=6+Math.random()*10;
+let xVel=Math.cos(angle)*velocity;
+let yVel=Math.sin(angle)*velocity;
+let gravity=0.4;
 let frame=0;
-let gravity=0.3;
 
-let interval=setInterval(()=>{
+let anim=setInterval(()=>{
 frame++;
-conf.style.left=(50 + x*frame)*1 + "vw";
-conf.style.top=(60 - y*frame + gravity*frame*frame)*1 + "vh";
-conf.style.transform="rotate("+frame*10+"deg)";
-if(frame>40){
-clearInterval(interval);
-conf.remove();
+piece.style.left=(50 + xVel*frame)+"vw";
+piece.style.top=(55 - yVel*frame + gravity*frame*frame)+"vh";
+piece.style.animation="spin 0.5s linear infinite";
+
+if(frame>45){
+clearInterval(anim);
+piece.remove();
 }
 },20);
 
 }
 }
 
-/* 🎈 Balloon Fountain */
+/* Balloon Fountain */
 function balloonFountain(){
-
-for(let i=0;i<30;i++){
+for(let i=0;i<35;i++){
 
 let balloon=document.createElement("div");
 balloon.innerHTML="🎈";
 balloon.style.position="fixed";
 balloon.style.left=Math.random()*100+"vw";
 balloon.style.bottom="0px";
-balloon.style.fontSize=(24+Math.random()*10)+"px";
-balloon.style.animation="riseUp 4s linear";
+balloon.style.fontSize=(24+Math.random()*12)+"px";
+balloon.style.animation="riseUp 4s linear forwards";
 document.body.appendChild(balloon);
 
 setTimeout(()=>balloon.remove(),4000);
@@ -269,17 +266,16 @@ setTimeout(()=>balloon.remove(),4000);
 }
 }
 
-/* ✨ Sparkle Trail */
-function sparkleTrail(){
-
-for(let i=0;i<50;i++){
+/* Sparkle Burst */
+function sparkleBurst(){
+for(let i=0;i<60;i++){
 
 let star=document.createElement("div");
 star.innerHTML="✨";
 star.style.position="fixed";
 star.style.left=Math.random()*100+"vw";
 star.style.top=Math.random()*100+"vh";
-star.style.fontSize=(15+Math.random()*15)+"px";
+star.style.fontSize=(14+Math.random()*18)+"px";
 star.style.opacity=Math.random();
 document.body.appendChild(star);
 
@@ -288,29 +284,21 @@ setTimeout(()=>star.remove(),1500);
 }
 }
 
-/* ❤️ Floating Hearts Always Running */
+/* Floating Hearts */
 setInterval(()=>{
 let heart=document.createElement("div");
+heart.className="heart";
 heart.innerHTML="❤️";
-heart.style.position="fixed";
 heart.style.left=Math.random()*100+"vw";
-heart.style.bottom="-20px";
-heart.style.fontSize=(15+Math.random()*20)+"px";
-heart.style.opacity="0.6";
-heart.style.animation="riseUp 8s linear";
+heart.style.fontSize=(15+Math.random()*25)+"px";
 document.body.appendChild(heart);
 setTimeout(()=>heart.remove(),8000);
 },900);
 
-/* Helpers */
-
+/* Random Color Generator */
 function randomColor(){
-const colors=["#ff4dff","#ff0000","#ffff00","#00ffff","#00ff00","#ff8800"];
+const colors=["#ff4dff","#ff0000","#ffff00","#00ffff","#00ff00","#ff8800","#ff66cc"];
 return colors[Math.floor(Math.random()*colors.length)];
-}
-@keyframes riseUp{
-from{transform:translateY(0);}
-to{transform:translateY(-120vh);}
 }
 
 </script>
