@@ -14,7 +14,6 @@ text-align:center;
 overflow:hidden;
 }
 
-/* Pages */
 .page{
 position:absolute;
 width:100%;
@@ -29,7 +28,6 @@ transition:0.7s ease;
 
 .hidden{ display:none; }
 
-/* Glowing Name */
 .glow{
 font-size:2.3rem;
 animation:glow 2s infinite alternate;
@@ -40,7 +38,6 @@ from{text-shadow:0 0 10px pink;}
 to{text-shadow:0 0 25px #ff66ff,0 0 40px pink;}
 }
 
-/* Cake */
 #cake{
 font-size:160px;
 position:relative;
@@ -55,7 +52,6 @@ font-size:35px;
 #c2{ top:-40px; left:50%; transform:translateX(-50%); }
 #c3{ top:-40px; left:70%; }
 
-/* Button */
 button{
 padding:12px 25px;
 font-size:16px;
@@ -66,7 +62,6 @@ margin-top:20px;
 border-radius:6px;
 }
 
-/* Memory */
 .memory-container{
 display:flex;
 align-items:center;
@@ -87,7 +82,6 @@ box-shadow:0 0 15px pink;
 max-width:200px;
 }
 
-/* Grid */
 .grid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
@@ -107,7 +101,6 @@ font-size:22px;
 animation:glow 2s infinite alternate;
 }
 
-/* Floating animation */
 @keyframes floatUp{
 from{transform:translateY(0);}
 to{transform:translateY(-120vh);}
@@ -117,12 +110,10 @@ to{transform:translateY(-120vh);}
 
 <body>
 
-<!-- MUSIC -->
 <audio id="bgMusic" loop>
 <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- PAGE 1 -->
 <div class="page" id="page1">
 <h1 class="glow">Happy Birthday Zunaira ❤️</h1>
 
@@ -137,20 +128,18 @@ to{transform:translateY(-120vh);}
 <button id="next1" class="hidden" onclick="nextPage(2)">Next ➜</button>
 </div>
 
-<!-- PAGE 2 -->
 <div class="page hidden" id="page2">
 <h2>Our Beautiful Memories ❤️</h2>
 <div class="memory-container">
-<img src="photo1.jpg">
+<img src="photo1.JPG">
 <div class="memory-text">
 From strangers to something magical ❤️
 </div>
-<img src="photo2.jpg">
+<img src="photo2.JPG">
 </div>
 <button onclick="nextPage(3)">Next ➜</button>
 </div>
 
-<!-- PAGE 3 -->
 <div class="page hidden" id="page3">
 <h2>More Moments Together ✨</h2>
 <div class="memory-container">
@@ -163,13 +152,12 @@ Every memory with you feels special 💫
 <button onclick="nextPage(4)">Next ➜</button>
 </div>
 
-<!-- PAGE 4 -->
 <div class="page hidden" id="page4">
 <h2>Forever With You 💍</h2>
 <div class="grid">
 <img src="photo5.jpg">
-<img src="photo6.jpg">
-<img src="photo7.jpg">
+<img src="photo6.JPG">
+<img src="photo7.JPG">
 <img src="photo8.jpg">
 </div>
 <div class="bottom-text">
@@ -179,18 +167,15 @@ Will marry you soon ❤️
 
 <script>
 
-/* PAGE SWITCH */
 function nextPage(num){
 document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
 document.getElementById("page"+num).classList.remove('hidden');
 }
 
-/* Start music on first interaction */
 document.body.addEventListener("click",()=>{
 document.getElementById("bgMusic").play();
 },{once:true});
 
-/* Blow Candles */
 function blowCandles(){
 document.getElementById("c1").style.display="none";
 document.getElementById("c2").style.display="none";
@@ -200,7 +185,6 @@ confettiBlast();
 document.getElementById("next1").classList.remove('hidden');
 }
 
-/* Hearts floating */
 function createHeart(){
 const heart=document.createElement("div");
 heart.innerHTML="❤️";
@@ -214,7 +198,6 @@ setTimeout(()=>heart.remove(),6000);
 }
 setInterval(createHeart,500);
 
-/* Balloons */
 function releaseBalloons(){
 for(let i=0;i<30;i++){
 let b=document.createElement("div");
@@ -229,7 +212,6 @@ setTimeout(()=>b.remove(),4000);
 }
 }
 
-/* Confetti */
 function confettiBlast(){
 for(let i=0;i<60;i++){
 let c=document.createElement("div");
