@@ -311,10 +311,24 @@ Forever & Always ❤️
 
 /* Page Switch */
 function nextPage(num){
-document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
-document.getElementById("page"+num).classList.remove('hidden');
-}
 
+document.querySelectorAll('.page').forEach(p=>{
+p.classList.add('hidden');
+});
+
+let currentPage = document.getElementById("page"+num);
+currentPage.classList.remove('hidden');
+
+/* Trigger slide animations */
+let images = currentPage.querySelectorAll('.slide-left, .slide-right');
+
+images.forEach(img=>{
+img.classList.remove('active');
+void img.offsetWidth; // restart animation
+img.classList.add('active');
+});
+
+}
 /* Celebration */
 function celebrate(){
 confettiBurst();
@@ -325,37 +339,38 @@ sparkleBurst();
 /* Confetti */
 function confettiBurst(){
 
-for(let i=0;i<150;i++){
+for(let i=0;i<200;i++){
 
 let piece=document.createElement("div");
 
 piece.style.position="fixed";
-piece.style.width="12px";
-piece.style.height="12px";
+piece.style.width="10px";
+piece.style.height="10px";
 piece.style.background=randomColor();
 piece.style.left="50vw";
-piece.style.top="60vh";
+piece.style.top="50vh";
 piece.style.borderRadius="3px";
 piece.style.zIndex="9999";
-piece.style.boxShadow="0 0 10px white";
 document.body.appendChild(piece);
 
-let angle=(Math.random()*Math.PI)-Math.PI/2; // upward spread
-let velocity=12+Math.random()*12;
+let angle=Math.random()*Math.PI*2; // full 360 spread
+let velocity=8+Math.random()*10;
+
 let xVel=Math.cos(angle)*velocity;
 let yVel=Math.sin(angle)*velocity;
-let gravity=0.8;
+
+let gravity=0.3;
 let frame=0;
 
 let anim=setInterval(()=>{
 frame++;
 
 let x = 50 + xVel * frame * 0.2;
-let y = 60 - yVel * frame * 0.2 + gravity * frame * frame * 0.01;
+let y = 50 + yVel * frame * 0.2 + gravity * frame;
 
 piece.style.left = x + "vw";
 piece.style.top = y + "vh";
-piece.style.transform = "rotate(" + frame*15 + "deg)";
+piece.style.transform = "rotate(" + frame*10 + "deg)";
 
 if(frame>120){
 clearInterval(anim);
@@ -363,6 +378,7 @@ piece.remove();
 }
 
 },16);
+
 }
 }
 
