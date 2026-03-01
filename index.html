@@ -229,7 +229,6 @@ display:block; /* override flex */
 padding:0;
 }
 
-/* Each full screen section */
 .love-section{
 height:100vh;
 scroll-snap-align:start;
@@ -242,6 +241,15 @@ opacity:0;
 transform:translateY(60px);
 transition:all 1s ease;
 }
+
+/* Make first section visible immediately */
+.first-section{
+opacity:1 !important;
+transform:translateY(0) !important;
+justify-content:flex-start;
+padding-top:80px;
+}
+
 
 /* When visible */
 .love-section.show{
@@ -274,12 +282,6 @@ width:500px;
 border-radius:20px;
 box-shadow:0 0 30px pink;
 margin-top:20px;
-}
-
-/* Remove blank top feel */
-.first-section{
-justify-content:flex-start;
-padding-top:80px;
 }
 
 /* Simple scroll text */
