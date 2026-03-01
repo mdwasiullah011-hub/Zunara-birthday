@@ -225,6 +225,64 @@ from{transform:rotate(0deg);}
 to{transform:rotate(360deg);}
 }
 
+/* =========================
+   PAGE 5 SNAP SCROLL
+========================= */
+
+#page5{
+overflow-y:auto;
+scroll-snap-type:y mandatory;
+display:block; /* override flex */
+padding:0;
+}
+
+/* Each full screen section */
+.love-section{
+height:100vh;
+scroll-snap-align:start;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:40px;
+opacity:0;
+transform:translateY(60px);
+transition:all 1s ease;
+}
+
+/* When visible */
+.love-section.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* Page 5 Headings */
+.love-title{
+font-size:60px;
+color:#ff4dff;
+text-shadow:0 0 20px #ff4dff,0 0 40px pink;
+margin-bottom:30px;
+}
+
+/* Romantic readable font */
+.love-text{
+max-width:800px;
+font-size:26px;
+line-height:1.6;
+color:white;
+text-align:center;
+font-family: 'Segoe UI', sans-serif;
+margin-top:25px;
+}
+
+/* Big images */
+.love-section img{
+width:500px;
+border-radius:20px;
+box-shadow:0 0 30px pink;
+margin-top:20px;
+}
+
 </style>
 </head>
 
@@ -301,8 +359,49 @@ fr milkr v krenge sath m celebrate 😁♥️
 Forever & Always ❤️
 </h1>
 
-<button onclick="nextPage(1)">Start Again 💞</button>
+<button onclick="nextPage(5)">Next ➜</button>
 
+</div>
+
+</div>
+<!-- PAGE 5 – OUR LOVE STORY -->
+<div class="page hidden" id="page5">
+
+<div class="love-section">
+<div class="love-title">Our Love Story ❤️</div>
+<img src="Ourlovestory.JPG">
+</div>
+
+<div class="love-section">
+<div class="love-title">Our First Chat 💬</div>
+<img src="Firstchat.PNG">
+<div class="love-text">
+ye aapka pehla msg tha hmko jaan literally from stranger to lovers to husband wife 😁♥️ <br><br>
+Btw ye love story m aap hi lgta h sabse jyada effort ki ho 😭 issly hm v effort krke ye bnaye h samjhii motuu <br><br>
+I love you kuchuu puchhu 💖
+</div>
+</div>
+
+<div class="love-section">
+<div class="love-title">Our Proposal 💍</div>
+<img src="Proposal.PNG">
+<div class="love-text">
+sunona <br><br>
+Hm aapko like krte h 😂 aap propose krke bhaag gyi thi online nhi aayi thi hmko bht cute lga tha jaan 😘😘♥️ <br><br>
+Uss din propose nhi krti aap th akele bday mnaate doni😭
+</div>
+</div>
+
+<div class="love-section">
+<div class="love-title">First Kiss 💋</div>
+<img src="Kiss.PNG">
+<div class="love-text">
+hmko aaj v yaad h first kiss jaan 15 july 2022 ko kiye thai black dress m thi aap meri cutu wifey 😘
+</div>
+</div>
+
+<div class="love-section">
+<button onclick="nextPage(6)">Next ➜</button>
 </div>
 
 </div>
@@ -448,6 +547,19 @@ function randomColor(){
 const colors=["#ff4dff","#ff0000","#ffff00","#00ffff","#00ff00","#ff8800","#ff66cc"];
 return colors[Math.floor(Math.random()*colors.length)];
 }
+
+/* Page 5 scroll animation */
+const observer = new IntersectionObserver(entries => {
+entries.forEach(entry => {
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+});
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.love-section').forEach(section=>{
+observer.observe(section);
+});
 
 </script>
 
