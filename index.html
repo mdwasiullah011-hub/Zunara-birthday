@@ -7,6 +7,53 @@
 
 <style>
 
+/* Allow scroll only on page 5 & 6 */
+#page5, 
+#page6{
+overflow-y:auto;
+height:100vh;
+scroll-behavior:smooth;
+}
+
+/* =========================
+   IMAGE SLIDE ANIMATION
+========================= */
+
+.slide-left,
+.slide-right{
+opacity:0;
+}
+
+.slide-left.active{
+animation:slideFromLeft 1.5s ease forwards;
+}
+
+.slide-right.active{
+animation:slideFromRight 1.5s ease forwards;
+}
+
+@keyframes slideFromLeft{
+from{
+transform:translateX(-150px);
+opacity:0;
+}
+to{
+transform:translateX(0);
+opacity:1;
+}
+}
+
+@keyframes slideFromRight{
+from{
+transform:translateX(150px);
+opacity:0;
+}
+to{
+transform:translateX(0);
+opacity:1;
+}
+}
+
 /* =========================
    BODY – Animated Gradient
 ========================= */
@@ -38,7 +85,7 @@ position:relative;
 }
 
 /* =========================
-   PAGE STYLE
+   PAGES (Glass Effect)
 ========================= */
 .page{
 position:absolute;
@@ -63,48 +110,6 @@ pointer-events:none;
 }
 
 /* =========================
-   SLIDE ANIMATIONS
-========================= */
-.slide-left{
-transform:translateX(-200px);
-opacity:0;
-animation:slideLeft 1s forwards;
-}
-
-.slide-right{
-transform:translateX(200px);
-opacity:0;
-animation:slideRight 1s forwards;
-}
-
-.slide-up{
-transform:translateY(150px);
-opacity:0;
-animation:slideUp 1s forwards;
-}
-
-.fade-in{
-opacity:0;
-animation:fadeIn 1.5s forwards;
-}
-
-@keyframes slideLeft{
-to{transform:translateX(0);opacity:1;}
-}
-
-@keyframes slideRight{
-to{transform:translateX(0);opacity:1;}
-}
-
-@keyframes slideUp{
-to{transform:translateY(0);opacity:1;}
-}
-
-@keyframes fadeIn{
-to{opacity:1;}
-}
-
-/* =========================
    HEADINGS
 ========================= */
 h1{
@@ -124,33 +129,18 @@ text-shadow:0 0 20px red,0 0 40px pink;
 }
 
 /* =========================
-   IMAGES
+   CAKE INTERACTION
 ========================= */
-.vertical{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:35px;
+#cake{
+font-size:220px;
 margin:30px 0;
+transition:transform 0.3s ease, text-shadow 0.3s ease;
+cursor:pointer;
 }
 
-.vertical img{
-width:300px;
-border-radius:15px;
-box-shadow:0 0 25px pink;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(2,300px);
-gap:25px;
-margin-top:40px;
-}
-
-.grid img{
-width:300px;
-border-radius:15px;
-box-shadow:0 0 20px pink;
+#cake:hover{
+transform:scale(1.1);
+text-shadow:0 0 30px pink,0 0 60px yellow;
 }
 
 /* =========================
@@ -174,7 +164,47 @@ transform:scale(1.05);
 }
 
 /* =========================
-   HEARTS
+   IMAGES
+========================= */
+.vertical{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:35px;
+margin:30px 0;
+}
+
+.vertical img{
+width:300px;
+border-radius:15px;
+box-shadow:0 0 25px pink;
+transition:0.3s;
+}
+
+.vertical img:hover{
+transform:scale(1.05);
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(2,300px);
+gap:25px;
+margin-top:40px;
+}
+
+.grid img{
+width:300px;
+border-radius:15px;
+box-shadow:0 0 20px pink;
+transition:0.3s;
+}
+
+.grid img:hover{
+transform:scale(1.05);
+}
+
+/* =========================
+   FLOATING HEARTS
 ========================= */
 @keyframes riseUp{
 from{transform:translateY(0);}
@@ -189,6 +219,12 @@ opacity:0.6;
 animation:riseUp 8s linear forwards;
 }
 
+/* Confetti spin */
+@keyframes spin{
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
+}
+
 </style>
 </head>
 
@@ -198,9 +234,15 @@ animation:riseUp 8s linear forwards;
 
 <!-- PAGE 1 -->
 <div class="page" id="page1">
-<h1 class="fade-in">Happy Birthday To The Love Of My Life ❤️</h1>
-<div class="highlight fade-in">ZUNAIRA</div>
+
+<h1>Happy Birthday To The Love Of My Life ❤️</h1>
+<div class="highlight" style="letter-spacing:4px;">ZUNAIRA</div>
+
+<div id="cake">🎂</div>
+
+<button onclick="celebrate()">Celebrate 🎉</button>
 <button onclick="nextPage(2)">Next ➜</button>
+
 </div>
 
 <!-- PAGE 2 -->
@@ -209,7 +251,7 @@ animation:riseUp 8s linear forwards;
 
 <img src="photo1.JPG" class="slide-left">
 
-<h1 class="fade-in">
+<h1>
 bht mehnat se bnaye h jaan aapke liye <br>
 Aapko milkr th gift nhi de skte h isly online wish kr rahe h <br>
 Inshallah ek din ayega jab aapka bday p bht sara gifts denge aapko <br>
@@ -219,6 +261,7 @@ Inshallah ek din ayega jab aapka bday p bht sara gifts denge aapko <br>
 <img src="photo2.JPG" class="slide-right">
 
 </div>
+
 <button onclick="nextPage(3)">Next ➜</button>
 </div>
 
@@ -228,7 +271,7 @@ Inshallah ek din ayega jab aapka bday p bht sara gifts denge aapko <br>
 
 <img src="photo3.jpg" class="slide-right">
 
-<h1 class="fade-in">
+<h1>
 pura zindagi mere sath rehna jaan <br>
 i love you soo soo soo much <br>
 enjoy kijiye bday aapka <br>
@@ -238,26 +281,27 @@ fr milkr v krenge sath m celebrate 😁♥️
 <img src="photo4.jpg" class="slide-left">
 
 </div>
+
 <button onclick="nextPage(4)">Next ➜</button>
 </div>
 
-<!-- PAGE 4 -->
+<!-- PAGE 4 – GRAND FINALE -->
 <div class="page hidden" id="page4">
 
-<div class="highlight fade-in">WILL MARRY YOU SOON ❤️</div>
+<div class="highlight">WILL MARRY YOU SOON ❤️</div>
 
 <div class="grid">
-<img src="photo5.jpg" class="slide-up">
-<img src="photo6.JPG" class="slide-up">
-<img src="photo7.JPG" class="slide-up">
-<img src="photo8.jpg" class="slide-up">
+<img src="photo5.jpg" class="slide-left">
+<img src="photo6.JPG" class="slide-right">
+<img src="photo7.JPG" class="slide-left">
+<img src="photo8.jpg" class="slide-right">
 </div>
 
-<h1 style="margin-top:40px;font-size:50px;text-shadow:0 0 30px red;" class="fade-in">
+<h1 style="margin-top:40px;font-size:50px;text-shadow:0 0 30px red;">
 Forever & Always ❤️
 </h1>
 
-<button onclick="nextPage(5)">Next ➜</button>
+<button onclick="nextPage(1)">Start Again 💞</button>
 
 </div>
 
@@ -265,11 +309,128 @@ Forever & Always ❤️
 
 <script>
 
-/* Page Switch + reset animations */
+/* Page Switch */
 function nextPage(num){
 document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
-let page=document.getElementById("page"+num);
-page.classList.remove('hidden');
+document.getElementById("page"+num).classList.remove('hidden');
+}
+
+/* Celebration */
+function celebrate(){
+confettiBurst();
+balloonFountain();
+sparkleBurst();
+}
+
+/* Confetti */
+function confettiBurst(){
+
+for(let i=0;i<150;i++){
+
+let piece=document.createElement("div");
+
+piece.style.position="fixed";
+piece.style.width="12px";
+piece.style.height="12px";
+piece.style.background=randomColor();
+piece.style.left="50vw";
+piece.style.top="60vh";
+piece.style.borderRadius="3px";
+piece.style.zIndex="9999";
+piece.style.boxShadow="0 0 10px white";
+document.body.appendChild(piece);
+
+let angle=(Math.random()*Math.PI)-Math.PI/2; // upward spread
+let velocity=12+Math.random()*12;
+let xVel=Math.cos(angle)*velocity;
+let yVel=Math.sin(angle)*velocity;
+let gravity=0.8;
+let frame=0;
+
+let anim=setInterval(()=>{
+frame++;
+
+let x = 50 + xVel * frame * 0.2;
+let y = 60 - yVel * frame * 0.2 + gravity * frame * frame * 0.01;
+
+piece.style.left = x + "vw";
+piece.style.top = y + "vh";
+piece.style.transform = "rotate(" + frame*15 + "deg)";
+
+if(frame>120){
+clearInterval(anim);
+piece.remove();
+}
+
+},16);
+}
+}
+
+/* Balloons */
+function balloonFountain(){
+
+for(let i=0;i<60;i++){
+
+let balloon=document.createElement("div");
+balloon.innerHTML="🎈";
+
+balloon.style.position="fixed";
+balloon.style.left=Math.random()*100+"vw";
+balloon.style.bottom="-50px";
+balloon.style.fontSize=(28+Math.random()*20)+"px";
+balloon.style.zIndex="9999";
+document.body.appendChild(balloon);
+
+let drift=(Math.random()*4)-2; // sideways drift
+let riseSpeed=1+Math.random()*2;
+let frame=0;
+
+let anim=setInterval(()=>{
+frame++;
+
+balloon.style.bottom = (-50 + frame*riseSpeed) + "px";
+balloon.style.left = (parseFloat(balloon.style.left) + drift*0.3) + "vw";
+
+if(frame>600){
+clearInterval(anim);
+balloon.remove();
+}
+
+},16);
+
+}
+}
+
+/* Sparkles */
+function sparkleBurst(){
+for(let i=0;i<60;i++){
+let star=document.createElement("div");
+star.innerHTML="✨";
+star.style.position="fixed";
+star.style.left=Math.random()*100+"vw";
+star.style.top=Math.random()*100+"vh";
+star.style.fontSize=(14+Math.random()*18)+"px";
+star.style.opacity=Math.random();
+document.body.appendChild(star);
+setTimeout(()=>star.remove(),1500);
+}
+}
+
+/* Floating Hearts */
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(15+Math.random()*25)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),8000);
+},900);
+
+/* Random Color */
+function randomColor(){
+const colors=["#ff4dff","#ff0000","#ffff00","#00ffff","#00ff00","#ff8800","#ff66cc"];
+return colors[Math.floor(Math.random()*colors.length)];
 }
 
 </script>
