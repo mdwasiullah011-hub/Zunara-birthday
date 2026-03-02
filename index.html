@@ -12,9 +12,12 @@
    PAGE 6 STYLING
 ========================= */
 
-#page6 {
-  position: relative;
-  overflow-y: auto;
+#page6{
+  display:block !important;   /* override flex */
+  overflow-y:auto;
+  height:100vh;
+  scroll-snap-type:y mandatory;
+  padding:0;
 }
 
 /* Fixed Heading */
@@ -30,23 +33,23 @@
   background: rgba(0,0,0,0.3);
 }
 
-/* Scroll Container */
-.love6-container {
-  scroll-snap-type: y mandatory;
-}
 
 /* Each Section */
-.love6-section {
-  min-height: 100vh;
-  scroll-snap-align: start;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 120px;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s ease;
+.love6-section{
+  height:100vh;
+  scroll-snap-align:start;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding-top:140px;
+  opacity:0;
+  transform:translateY(60px);
+  transition:all 1s ease;
+}
+.love6-section:first-child{
+  opacity:1 !important;
+  transform:translateY(0) !important;
 }
 
 /* Animation Active */
@@ -57,10 +60,11 @@
 
 /* Image */
 .love6-img {
-  width: 70%;
-  max-width: 400px;
+  width: 600px;
+  max-width: 90%;
   border-radius: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 0 30px pink;
 }
 
 /* Subheading */
