@@ -8,6 +8,85 @@
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:ital,wght@1,400;1,700&family=Pacifico&display=swap" rel="stylesheet">
 <style>
 
+/* =========================
+   PAGE 6 STYLING
+========================= */
+
+#page6 {
+  position: relative;
+  overflow-y: auto;
+}
+
+/* Fixed Heading */
+.fixed-heading {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  font-size: 40px;
+  font-weight: bold;
+  color: yellow;
+  padding: 20px 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0.3);
+}
+
+/* Scroll Container */
+.love6-container {
+  scroll-snap-type: y mandatory;
+}
+
+/* Each Section */
+.love6-section {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 120px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+/* Animation Active */
+.love6-section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Image */
+.love6-img {
+  width: 70%;
+  max-width: 400px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+/* Subheading */
+.love6-sub {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Text */
+.love6-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 24px;
+  line-height: 1.6;
+  max-width: 80%;
+}
+
+/* Button */
+.next-btn {
+  padding: 12px 30px;
+  font-size: 20px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+}
+
 /* Message text under images across all pages */
 .love-text,
 .vertical h1 {
@@ -447,6 +526,56 @@ hmko aaj v yaad h first kiss jaan 15 july 2022 ko kiye thai black dress m thi aa
 
 </div>
 
+<!-- PAGE 6 – THINGS I LOVE ABOUT YOU -->
+<div class="page hidden" id="page6">
+
+  <h1 class="fixed-heading">
+    Things I Love About You Jaan ❤️
+  </h1>
+
+  <div class="love6-container">
+
+    <!-- SECTION 1 -->
+    <section class="love6-section">
+      <img src="Youreyes.jpg" class="love6-img">
+      <h2 class="love6-sub">Your Eyes 👀</h2>
+      <p class="love6-text">
+        Your eyes met mine and when they did you felt shy your cuteness overdrew me and i fell for you like a silly boy
+      </p>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section class="love6-section">
+      <img src="Yoursmile.jpg" class="love6-img">
+      <h2 class="love6-sub">Your Smile 🥰</h2>
+      <p class="love6-text">
+        Jab bhi aap smile karti ho, lagta hai jaise maine poori duniya jeet li ho.  
+        Har baar aapse aur zyada pyaar ho jaata hai… I LOVE YOU 🫶  
+        Aap khush rehti ho toh mera pura din roshan ho jaata hai jaan.  
+        Aap mujhse itna pyaar karti ho… bas hamesha aise hi pyaar karte rehna ♥️
+      </p>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section class="love6-section">
+      <img src="Youonlyyou.JPG" class="love6-img">
+      <h2 class="love6-sub">You Only And Only You Motku 😘♥️</h2>
+      <p class="love6-text">
+        Ham hmesha aapko choose krenge jaan 
+        Allah ne aapko mera zindagi m bheja jab ham sabse akele thai lekin aapse milkr hmesha ham khush rehte h 
+        Allah kare ham dono sath m rahe duniya aur akhirat dono m ♥️
+      </p>
+    </section>
+
+    <!-- NEXT BUTTON -->
+    <section class="love6-section">
+      <button onclick="nextPage(7)" class="next-btn">Next ➜</button>
+    </section>
+
+  </div>
+
+</div>
+
 <script>
 
 /* Page Switch */
@@ -600,6 +729,19 @@ entry.target.classList.add("show");
 
 document.querySelectorAll('.love-section').forEach(section=>{
 observer.observe(section);
+});
+
+/* PAGE 6 SCROLL ANIMATION */
+const observer6 = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+    }
+  });
+},{ threshold: 0.3 });
+
+document.querySelectorAll(".love6-section").forEach(section=>{
+  observer6.observe(section);
 });
 
 </script>
